@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="line">
+
+    <!-- Specify a gradient for the background -->
+
+    <!-- Specify a dark blue border -->
+    <stroke
+        android:width="2dp"
+        android:color="@color/linear_one"
+        />
+
+    <!-- Specify the margins that all content inside the drawable must adhere to -->
+   
+
+    <corners
+        android:topLeftRadius="05dp"
+        android:topRightRadius="05dp"
+        android:bottomLeftRadius="05dp"
+        android:bottomRightRadius="05dp" />
+</shape>

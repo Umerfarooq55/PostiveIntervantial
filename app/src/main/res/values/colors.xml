@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#EB1515</color>
+    <color name="colorPrimaryDark">#3D2C3C</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="bottomNavigationColoure">#EB1515</color>
+    <color name="textColoureWhite">#ffffff</color>
+    <color name="textColoureBlack">#000000</color>
+
+    <color name="linear_one">#166989</color>
+
+    <color name="linear_one_light">#3b7991</color>
+    <color name="linear_two">#FEE33A</color>
+
+    <color name="aroow_greay">#615656</color>
+    <color name="light_grey">#E4E5E7</color>
+</resources>
