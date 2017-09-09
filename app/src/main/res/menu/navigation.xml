@@ -5,28 +5,30 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
+
         android:enabled="true"
 
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/Exit"
-        android:icon="@drawable/ic_exit_to_app_black_24dp"
-        android:enabled="true"
-
-        app:showAsAction="ifRoom"
-        />
-
-
+        app:showAsAction=""/>
     <item
         android:id="@+id/camera"
         android:icon="@drawable/ic_camera_alt_black_24dp"
         android:enabled="true"
 
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/telephone"
+        android:icon="@drawable/phone"
+        android:enabled="true"
+
         app:showAsAction="ifRoom"
         />
 
+
+
+
     <item
-        android:id="@+id/telephone"
+        android:id="@+id/Exit"
         android:icon="@drawable/ic_exit_to_app_black_24dp"
         android:enabled="true"
 

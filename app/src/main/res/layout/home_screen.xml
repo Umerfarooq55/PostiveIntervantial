@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="intervantial.positive.com.postiveintervantial.MainActivity">
+    tools:context="intervantial.positive.com.postiveintervantial.HomeScreen">
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@ android:id="@+id/l_one"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="45dp"
                 android:text="Health and safety breach"
                 android:textAllCaps="true"
                 android:textColor="#ffffff"
@@ -85,7 +85,7 @@ android:id="@+id/l_one"
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/ic_chevron_right_black_24dp" />
         </LinearLayout>
@@ -101,7 +101,7 @@ android:id="@+id/l_one"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="63dp"
                 android:text="Unfair treatment"
                 android:textAllCaps="true"
                 android:textColor="#000000"
@@ -110,7 +110,7 @@ android:id="@+id/l_one"
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/ic_keyboard_arrow_right_grey_24dp" />
         </LinearLayout>
@@ -126,7 +126,7 @@ android:id="@+id/l_one"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="63dp"
                 android:text="Report an injury"
                 android:textAllCaps="true"
                 android:textColor="#ffffff"
@@ -137,7 +137,7 @@ android:id="@+id/l_one"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:background="@drawable/ic_chevron_right_black_24dp" />
         </LinearLayout>
 
@@ -152,7 +152,7 @@ android:id="@+id/l_one"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="63dp"
                 android:text="Review of sight"
                 android:textAllCaps="true"
                 android:textColor="#000000"
@@ -163,7 +163,7 @@ android:id="@+id/l_one"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 android:background="@drawable/ic_keyboard_arrow_right_grey_24dp" />
         </LinearLayout>
     </LinearLayout>

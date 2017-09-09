@@ -2,6 +2,8 @@ package intervantial.positive.com.postiveintervantial;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,12 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-public class second extends AppCompatActivity {
+public class HealthAndSafety extends AppCompatActivity {
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateView;
@@ -33,16 +36,23 @@ public class second extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-
+                    Intent b = new Intent(HealthAndSafety.this,HomeScreen2.class);
+                    startActivity(b);
                     return true;
                 case R.id.camera:
-
+                    Intent bq = new Intent(HealthAndSafety.this,CameraActivity.class);
+                    startActivity(bq);
                     return true;
                 case R.id.Exit:
-
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_HOME);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     return true;
                 case R.id.telephone:
-
+                    Intent intentc = new Intent(Intent.ACTION_DIAL);
+                    intentc.setData(Uri.parse("tel:0123456789"));
+                    startActivity(intentc);
                     return true;
 
             }
@@ -54,13 +64,15 @@ public class second extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.newdesign);
+        setContentView(R.layout.health_and_safety);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
 
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
+
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_24dp);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -81,6 +93,16 @@ public class second extends AppCompatActivity {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
         showTime(hour, min);
+
+
+        RelativeLayout camera = (RelativeLayout) findViewById(R.id.camera);
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(HealthAndSafety.this, CameraActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -17,7 +17,7 @@ public class Verification extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Verification.this,MainActivity.class);
+                Intent i = new Intent(Verification.this,HomeScreen2.class);
                 startActivity(i);
             }
         });

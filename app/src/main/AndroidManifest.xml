@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="intervantial.positive.com.postiveintervantial">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,12 +18,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:label=""/>
-        <activity android:name=".second"
-            android:label=""/>
+        <activity
+            android:name=".HomeScreen"
+            android:label="" />
+        <activity
+            android:name=".HealthAndSafety"
+            android:label="" />
         <activity android:name=".PhoneNumber" />
-        <activity android:name=".Verification"></activity>
+        <activity android:name=".Verification" />
+        <activity
+            android:name=".UnfairTreatment"
+            android:label="" />
+        <activity
+            android:name=".ReportAnInjury"
+            android:label="" />
+        <activity android:name=".CameraActivity" />
+        <activity
+            android:name=".ReviewOfSight"
+            android:label="" />
+        <activity
+            android:name=".HomeScreen2"
+            android:label=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
