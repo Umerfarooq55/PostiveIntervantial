@@ -16,4 +16,5 @@
 
     <color name="aroow_greay">#615656</color>
     <color name="light_grey">#E4E5E7</color>
+    <color name="hex_bottomNavigationColoure">#1AEB1515</color>
 </resources>

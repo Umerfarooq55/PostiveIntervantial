@@ -11,4 +11,19 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_home_screen2">HomeScreen2</string>
+    <string name="title_activity_navdrawer">navdrawer</string>
+
+    <string name="verification">Please enter your number here for verification:</string>
+    <string name="phone_number">Waiting to automatically detect SMS sent to your number</string>
+
+
+    <string-array name="planets_array">
+        <item>          Select Code</item>
+        <item>1234</item>
+        <item>0423</item>
+        <item>9512</item>
+        <item>7896</item>
+        <item>1598</item>
+
+    </string-array>
 </resources>

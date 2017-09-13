@@ -1,0 +1,187 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="intervantial.positive.com.postiveintervantial.HealthandSafteyDetails">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textdescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+
+        <TextView
+            android:id="@+id/textcontract"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contract Code"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/contractcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contract Code"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:id="@+id/texttime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Time"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp">
+
+        <TextView
+            android:id="@+id/textdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp">
+
+        <TextView
+            android:id="@+id/textimages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Image"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:text="Image"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp">
+
+        <TextView
+            android:id="@+id/textnameof"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name Of Persons"
+            android:textSize="35sp" />
+
+        <EditText
+            android:id="@+id/nameoff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nae Of Persons"
+            android:textSize="35sp"
+            android:visibility="invisible" />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_gravity="right"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="330dp"
+        android:layout_height="240dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="300dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="550dp"
+        android:background="@color/linear_one"
+        android:gravity="center"
+        android:text="Submit" />
+</FrameLayout>
