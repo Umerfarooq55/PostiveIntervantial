@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,12 @@ import java.io.IOException;
 import java.util.Calendar;
 
 public class HealthAndSafety extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    public static final String DES = "des";
+    public static final String CODE = "code";
+    public static final String TIME = "time";
+    public static final String DATE = "date";
+    public static final String NAMEOF = "nameof";
+    public static final String NAME = "Health";
     private static final String IMAGE_DIRECTORY = "/demonuts";
     TextView mSelectCode, btn;
     Spinner spinner;
@@ -69,7 +76,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        mSelectCode = (TextView) findViewById(R.id.selectcode);
+
         switch (pos) {
             case 0:
 
@@ -102,38 +109,6 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         }
     }
 
-//    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    Intent b = new Intent(HealthAndSafety.this,HomeScreen2.class);
-//                    startActivity(b);
-//                    return true;
-//                case R.id.camera:
-//                    Intent bq = new Intent(HealthAndSafety.this,CameraActivity.class);
-//                    startActivity(bq);
-//                    return true;
-//                case R.id.Exit:
-//                    Intent intent = new Intent(Intent.ACTION_MAIN);
-//                    intent.addCategory(Intent.CATEGORY_HOME);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
-//                    return true;
-//                case R.id.telephone:
-//                    Intent intentc = new Intent(Intent.ACTION_DIAL);
-//                    intentc.setData(Uri.parse("tel:0123456789"));
-//                    startActivity(intentc);
-//                    return true;
-//
-//            }
-//            return false;
-//        }
-//
-//    };
-
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
@@ -143,6 +118,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.health_and_safety);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mSelectCode = (TextView) findViewById(R.id.selectcode);
 
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -150,8 +126,6 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_24dp);
-//        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Spinner spinner = (Spinner) findViewById(R.id.healthy_spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -248,6 +222,34 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences(NAME, MODE_PRIVATE);
+
+        SharedPreferences prefs1 = getSharedPreferences("name", MODE_PRIVATE);
+
+        if (prefs1.contains("num")) {
+            if (prefs.contains(DES)) {
+                // String name = prefs.getString("munum", "");//"No name defined" is the default value.
+
+                desc.setText(prefs.getString(DES, ""));
+                nameof.setText(prefs.getString(NAMEOF, ""));
+                dateView.setText(prefs.getString(DATE, ""));
+                String hou = prefs.getString(TIME, "").substring(0, 2);
+                String min = prefs.getString(TIME, "").substring(3);
+                int a = Integer.parseInt(hou);
+                int b = Integer.parseInt(min);
+
+
+                //  t.setText(prefs.getString(CODE, ""));
+
+            } else {
+                Toast.makeText(HealthAndSafety.this, "no", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        } else {
+
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -316,8 +318,8 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
         String nameoff = nameof.getText().toString();
 
-        if (description.equals("") || time.equals("") || Date.equals("") || nameoff.equals("") || Contrac_code.equals("Select Code")) {
-            Toast.makeText(HealthAndSafety.this, nameoff + "", Toast.LENGTH_SHORT).show();
+        if (description.equals("") || time.equals("") || Date.equals("") || nameoff.equals("") || Contrac_code.equals("Select Code...")) {
+            Toast.makeText(HealthAndSafety.this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
 
         } else {
 
@@ -346,11 +348,11 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             } else if (!gal && !cam) {
                 Intent i = new Intent(HealthAndSafety.this, HealthandSafteyDetails.class);
                 i.putExtra("desc", description);
-                i.putExtra("code", description);
-                i.putExtra("time", description);
-                i.putExtra("date", description);
-                i.putExtra("nameoff", description);
-                i.putExtra("desc", description);
+                i.putExtra("code", Contrac_code);
+                i.putExtra("time", time);
+                i.putExtra("date", Date);
+                i.putExtra("nameoff", nameoff);
+
                 i.putExtra("image", "null");
                 startActivity(i);
                 Toast.makeText(HealthAndSafety.this, "no pic", Toast.LENGTH_SHORT).show();
@@ -361,7 +363,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
     }
 
-    private void showPictureDialog() {
+    public void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
         String[] pictureDialogItems = {
@@ -392,7 +394,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         startActivityForResult(galleryIntent, GALLERY);
     }
 
-    private void takePhotoFromCamera() {
+    public void takePhotoFromCamera() {
         Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyImages");
         imagesFolder.mkdirs();
@@ -428,37 +430,6 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     gal = true;
                     cam = false;
-                    //   String path = saveImage(bitmap);
-                    //  Toast.makeText(HealthAndSafety.this, "Image Saved!", Toast.LENGTH_SHORT).show();
-                    // imageview.setImageBitmap(bitmap);
-                    //      send.setOnClickListener(new View.OnClickListener() {
-                    //    @Override
-                    //   public void onClick(View view) {
-
-
-                    //   String emailTo         = "hamdullah@gmail";
-                    //  String emailSubject     = "sdfsad";
-                    //  String emailContent     = "sdfds\nhamd";
-
-                    // Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-
-
-                    // emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
-                    // emailIntent.putExtra(Intent.EXTRA_TEXT, emailContent);
-                    // emailIntent .setType("image/jpeg");
-                    //  emailIntent .putExtra(Intent.EXTRA_SUBJECT, "Positive Intervention JOB CODE: ");
-                    //   emailIntent .putExtra(Intent.EXTRA_STREAM, contentURI);
-                    //  emailIntent.setType("message/rfc822");
-                    //  emailIntent.setData(Uri.parse("mailto:"+emailTo));
-                    //    try {
-                    //        startActivity(emailIntent);
-                    //   } catch (ActivityNotFoundException e) {
-
-                    //   }
-
-
-                    // }
-                    //  });
 
 
                 } catch (IOException e) {
@@ -485,31 +456,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             cam = true;
 
 
-            /*send.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                    String emailTo         = "hahf";
-                    String emailSubject     = "sdfsad";
-                    String emailContent     = "sdfds";
-
-                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{ emailTo});
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
-                    emailIntent.putExtra(Intent.EXTRA_TEXT, emailContent);
-                    emailIntent .setType("image/jpeg");
-                    emailIntent .putExtra(Intent.EXTRA_SUBJECT, "My Picture");
-
-                    emailIntent .putExtra(Intent.EXTRA_STREAM, pngUri);
-                    emailIntent.setType("message/rfc822");
-
-
-                    //startActivity(Intent.createChooser(emailIntent, "Select an Email Client:"));
-                    Intent i=new Intent(MainActivity.this,tempact.class);
-                    i.putExtra("imageUri", pngUri.toString());
-                    startActivity(i);
-                }
-            });*/
 
         }
     }

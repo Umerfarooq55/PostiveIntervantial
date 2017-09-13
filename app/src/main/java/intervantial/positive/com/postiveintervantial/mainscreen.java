@@ -17,8 +17,9 @@ public class mainscreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainscreen);
         Button signup = (Button) findViewById(R.id.signup);
+        Button skip = (Button) findViewById(R.id.skip);
         SharedPreferences prefs = getSharedPreferences(NAME, MODE_PRIVATE);
-        //String restoredText = prefs.getString("mynum", null);
+
         if (prefs.contains(NUM)) {
             //  String name = prefs.getString("munum", "");//"No name defined" is the default value.
 
@@ -35,6 +36,20 @@ public class mainscreen extends AppCompatActivity {
                     startActivity(i);
                 }
             });
+
+            skip.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mainscreen.this, HomeScreen2.class);
+                    startActivity(i);
+                }
+            });
+
+
+
+
+
+
         }
 
     }

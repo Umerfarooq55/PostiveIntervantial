@@ -15,10 +15,14 @@
 
     <string name="verification">Please enter your number here for verification:</string>
     <string name="phone_number">Waiting to automatically detect SMS sent to your number</string>
+    <string name="describe_the_report_of_injury">Describe the Report of Injury:</string>
+    <string name="describe_the_breach_of_health_and_safety_below">Describe the breach of health and safety below:</string>
+    <string name="describe_the_review_of_sight">Describe the Review of Sight</string>
+    <string name="describe_the_treatment">Describe the Treatment</string>
 
 
     <string-array name="planets_array">
-        <item>          Select Code</item>
+        <item>Select Code...</item>
         <item>1234</item>
         <item>0423</item>
         <item>9512</item>
