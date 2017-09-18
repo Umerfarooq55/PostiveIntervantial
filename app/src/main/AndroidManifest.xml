@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -46,7 +47,12 @@
             android:name=".navdrawer"
             android:label="@string/title_activity_navdrawer"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".HealthandSafteyDetails"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ReviewOfSightDetails" />
+        <activity android:name=".UnfairTreatmentDetails" />
+        <activity android:name=".HealthandSafteyDetails" />
+        <activity android:name=".ReportAnInjuryDetails" />
+        <activity android:name=".Admin"></activity>
     </application>
 
 </manifest>

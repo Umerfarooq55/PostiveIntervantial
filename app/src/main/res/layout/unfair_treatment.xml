@@ -373,13 +373,13 @@
                 >
 
                 <EditText
-
+                    android:id="@+id/n_of"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="23dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:hint="Name of persons involve if applicable."
+                    android:hint="Name of persons involved if applicable."
 
                     />
             </RelativeLayout>

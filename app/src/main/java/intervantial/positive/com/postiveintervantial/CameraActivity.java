@@ -21,7 +21,8 @@ public class CameraActivity extends AppCompatActivity {
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     public static final String ALLOW_KEY = "ALLOWED";
     public static final String CAMERA_PREF = "camera_pref";
-
+    Uri pngUri;
+    Uri contentURI;
     public static void saveToPreferences(Context context, String key, Boolean allowed) {
         SharedPreferences myPrefs = context.getSharedPreferences(CAMERA_PREF,
                 Context.MODE_PRIVATE);
@@ -182,9 +183,12 @@ public class CameraActivity extends AppCompatActivity {
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
 
-     startActivity(new Intent(CameraActivity.this,HomeScreen2.class));
+        if (resultCode == RESULT_OK) {
+            Intent i = new Intent(CameraActivity.this, HealthandSafteyDetails.class);
+            i.putExtra("image", pngUri.toString());
+            i.putExtra("image", contentURI.toString());
+            startActivity(i);
 
 
 
@@ -209,6 +213,7 @@ public class CameraActivity extends AppCompatActivity {
 
 
                     startActivityForResult(intent, 1);
+
                 }
                 else if (options[item].equals("Choose from Gallery"))
                 {

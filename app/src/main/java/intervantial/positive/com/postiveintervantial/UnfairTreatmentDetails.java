@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class HealthandSafteyDetails extends AppCompatActivity {
+public class UnfairTreatmentDetails extends AppCompatActivity {
     public static final String DES = "des";
     public static final String CODE = "code";
     public static final String TIME = "time";
@@ -31,7 +31,7 @@ public class HealthandSafteyDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.healthand_saftey_details);
+        setContentView(R.layout.unfairtreatmentdetails);
 
 
         d = (TextView) findViewById(R.id.description);
@@ -136,7 +136,7 @@ public class HealthandSafteyDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //
-                Intent i = new Intent(HealthandSafteyDetails.this, HomeScreen2.class);
+                Intent i = new Intent(UnfairTreatmentDetails.this, HomeScreen2.class);
                 startActivity(i);
             }
         });

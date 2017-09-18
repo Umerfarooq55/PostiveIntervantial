@@ -2,6 +2,7 @@ package intervantial.positive.com.postiveintervantial;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,9 +30,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class HealthAndSafety extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     public static final String DES = "des";
@@ -51,6 +61,16 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
     Bitmap bitmap, bitmap2;
     boolean cam = false, gal = false;
     Uri pngUri;
+    long i, b, c;
+    String cb;
+    long maxq, size;
+    List<String> myList;
+    List<String> myList1;
+    String x, y, z;
+    ArrayAdapter<String> adapter;
+    int count = 0;
+    //    ArrayAdapter<CharSequence> adapter;
+    DatabaseReference rootRef, demoRef;//  demoRef = rootRef.child("Code");
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateView;
@@ -76,6 +96,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
+
 
         switch (pos) {
             case 0:
@@ -126,13 +147,145 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_24dp);
+//
+//        Spinner spinner = (Spinner) findViewById(R.id.healthy_spinner);
+//// Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.planets_array, R.layout.customspin);
+////        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+////                android.R.layout.simple_spinner_item, myList);
+//// Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//// Apply the adapter to the spinner
+//        spinner.setAdapter(adapter);
+        rootRef = FirebaseDatabase.getInstance().getReference();
+
+        demoRef = rootRef.child("value");
+
+//b = i++;
+        rootRef.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+//                    // easy
+
+
+//                    String value = dataSnapshot.getValue(String.class);
+                size = dataSnapshot.getChildrenCount();
+                maxq = size;
+
+//                setval(size);
+////                Toast.makeText(HealthAndSafety.this, maxq+"onCancel", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(HealthAndSafety.this, maxq + "", Toast.LENGTH_SHORT).show();
+//                }
+
+
+//                for (DataSnapshot snap: dataSnapshot.getChildren()) {
+//                    Log.e(snap.getKey(),snap.getChildrenCount() + "");
+//                    Toast.makeText(HealthAndSafety.this, snap.getChildrenCount() + "", Toast.LENGTH_SHORT).show();
+
+//                List<String> lst = new ArrayList<String>(); // Result will be holded Here
+//                String valuee = dataSnapshot.getValue(String.class);
+//                lst.add(valuee);
+//                for(DataSnapshot dsp : dataSnapshot.getChildren()){
+//                    lst.add(String.valueOf(dsp.getkey())); //add result into array list
+
+//                    Toast.makeText(HealthAndSafety.this,  ""+ valuee, Toast.LENGTH_SHORT).show();
+
+                //  String value = dataSnapshot.getKey();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                Toast.makeText(HealthAndSafety.this, "onCancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+////        Toast.makeText(HealthAndSafety.this, getva() + "onCancel", Toast.LENGTH_SHORT).show();
+//        for (c = 0; c < 4; c++) {
+//
+//
+//            cb = String.valueOf(c);
+
+
+        rootRef.child("value").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+//                    // easy
+                ArrayList<String> myList = new ArrayList<String>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String university = postSnapshot.getValue(String.class);
+                    myList.add(university);
+//                            String cb = dataSnapshot.getValue(String.class);
+//                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+//                            myList.add(String.valueOf(dsp.getValue()));
+//                       Toast.makeText(HealthAndSafety.this,  ""+ value, Toast.LENGTH_SHORT).show();
+
+//                            ArrayList<String> myList = new ArrayList<String>();
+////                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+//                            myList.add(String.valueOf(dsp.getValue())); //add r
+//                            myList.add(cb);
+                    Toast.makeText(HealthAndSafety.this, "" + myList.get(0), Toast.LENGTH_SHORT).show();
+//                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(HealthAndSafety.this,
+//              R.array.planets_array, R.layout.customspin);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(HealthAndSafety.this,
+                            R.layout.customspin, myList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        try
+                    Spinner spinner = (Spinner) findViewById(R.id.healthy_spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.planets_array, R.layout.customspin);
+
+// Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+                    spinner.setAdapter(adapter);
+//                            {
+//                                File root = new File(Environment.getExternalStorageDirectory()+File.separator+"Music_Folder", "Report Files");
+//                                //File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+//                                if (!root.exists())
+//                                {
+//                                    root.mkdirs();
+//                                }
+//                                File gpxfile = new File(root, "notes.txt");
+//
+//
+//                                FileWriter writer = new FileWriter(gpxfile,true);
+//                                writer.append(value+"\n\n");
+//                                writer.flush();
+//                                writer.close();
+//                                //Toast.makeText(HealthAndSafety.this, "Data has been written to Report File", Toast.LENGTH_SHORT).show();
+//                            }
+//                            catch(IOException e)
+//                            {
+//
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                // Toast.makeText(HealthAndSafety.this, "onCancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        }
+//        }
+
 
         Spinner spinner = (Spinner) findViewById(R.id.healthy_spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, R.layout.customspin);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.planets_array, R.layout.customspin);
+
 // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
@@ -146,7 +299,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        showDate(year, month+1, day);
+        showDate(year, month + 1, day);
 
         timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
         time = (TextView) findViewById(R.id.selectcode_two);
@@ -182,9 +335,9 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent b = new Intent(HealthAndSafety.this, CameraActivity.class);
-                startActivity(b);
+                showPictureDialog();
+                // Intent b = new Intent(HealthAndSafety.this, CameraActivity.class);
+                //startActivity(b);
 
             }
         });
@@ -193,9 +346,32 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
 
-                Intent intentc = new Intent(Intent.ACTION_DIAL);
-                intentc.setData(Uri.parse("tel:+92 42 35941084"));
-                startActivity(intentc);
+                TelephonyManager telMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                int simState = telMgr.getSimState();
+                switch (simState) {
+                    case TelephonyManager.SIM_STATE_ABSENT:
+                        Toast.makeText(HealthAndSafety.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
+                        Toast.makeText(HealthAndSafety.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_PIN_REQUIRED:
+                        Toast.makeText(HealthAndSafety.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_PUK_REQUIRED:
+                        Toast.makeText(HealthAndSafety.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_READY:
+
+                        Intent intentc = new Intent(Intent.ACTION_DIAL);
+                        intentc.setData(Uri.parse("tel:+92 42 35941084"));
+                        startActivity(intentc);
+
+                        break;
+                    case TelephonyManager.SIM_STATE_UNKNOWN:
+                        Toast.makeText(HealthAndSafety.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                }
 
 
             }
@@ -205,7 +381,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
 //
-                Intent i = new Intent(HealthAndSafety.this, HomeScreen2.class);
+                Intent i = new Intent(HealthAndSafety.this, HealthAndSafety.class);
                 startActivity(i);
             }
         });
@@ -242,7 +418,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
                 //  t.setText(prefs.getString(CODE, ""));
 
             } else {
-                Toast.makeText(HealthAndSafety.this, "no", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(HealthAndSafety.this, "no", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -285,6 +461,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         dateView.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
     }
+
     public void setTime(View view) {
         hour = timePicker1.getCurrentHour();
         min = timePicker1.getCurrentMinute();
@@ -310,6 +487,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
     }
 
     void sendtonext() {
+
         String description = desc.getText().toString();
         String Contrac_code = label;
         String time = timePicker1.getCurrentHour() + ":" + timePicker1.getCurrentMinute();
@@ -332,7 +510,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
                 i.putExtra("nameoff", nameoff);
                 i.putExtra("image", pngUri.toString());
                 startActivity(i);
-                Toast.makeText(HealthAndSafety.this, uriSavedImage + "cam", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(HealthAndSafety.this, uriSavedImage + "cam", Toast.LENGTH_SHORT).show();
 
             } else if (gal && !cam) {
                 Intent i = new Intent(HealthAndSafety.this, HealthandSafteyDetails.class);
@@ -344,7 +522,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
                 i.putExtra("image", contentURI.toString());
                 startActivity(i);
 
-                Toast.makeText(HealthAndSafety.this, contentURI + "gal", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(HealthAndSafety.this, contentURI + "gal", Toast.LENGTH_SHORT).show();
             } else if (!gal && !cam) {
                 Intent i = new Intent(HealthAndSafety.this, HealthandSafteyDetails.class);
                 i.putExtra("desc", description);
@@ -355,7 +533,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
 
                 i.putExtra("image", "null");
                 startActivity(i);
-                Toast.makeText(HealthAndSafety.this, "no pic", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HealthAndSafety.this, "No Pic Is attached", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -402,7 +580,7 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
         File image = new File(imagesFolder, "QR12" + ".jpg");
         uriSavedImage = Uri.fromFile(image);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
-        Toast.makeText(HealthAndSafety.this, android.os.Environment.getExternalStorageDirectory().toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(HealthAndSafety.this, android.os.Environment.getExternalStorageDirectory().toString(), Toast.LENGTH_LONG).show();
 
         startActivityForResult(intent, CAMERA);
     }
@@ -456,14 +634,17 @@ public class HealthAndSafety extends AppCompatActivity implements AdapterView.On
             cam = true;
 
 
-
-
         }
     }
 
+    public void setval(long i) {
+        maxq += i;
 
+    }
 
-
+    public long getva() {
+        return maxq;
+    }
 }
 
 

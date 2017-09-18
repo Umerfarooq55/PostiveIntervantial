@@ -2,28 +2,57 @@ package intervantial.positive.com.postiveintervantial;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    TextView mSelectCode;
+    public static final String DES = "des";
+    public static final String CODE = "code";
+    public static final String TIME = "time";
+    public static final String DATE = "date";
+    public static final String NAMEOF = "nameof";
+    public static final String NAME = "Health";
+    private static final String IMAGE_DIRECTORY = "/demonuts";
+    TextView mSelectCode, btn;
+    Spinner spinner;
+    EditText desc, nameof;
+    int hour;
+    int min;
+    String label;
+    Uri uriSavedImage;
+    Uri contentURI;
+    Bitmap bitmap, bitmap2;
+    boolean cam = false, gal = false;
+    Uri pngUri;
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateView;
@@ -31,6 +60,9 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
     private TimePicker timePicker1;
     private TextView time;
     private String format = "";
+    private int GALLERY = 1, CAMERA = 2;
+    private Button send;
+    private ImageView imageview;
     private DatePickerDialog.OnDateSetListener myDateListener = new
             DatePickerDialog.OnDateSetListener() {
                 @Override
@@ -49,67 +81,36 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
 
         switch (pos) {
             case 0:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String label = parent.getItemAtPosition(pos).toString();
+
+                label = parent.getItemAtPosition(pos).toString();
                 mSelectCode.setText(label);
                 break;
             case 1:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String labelone = parent.getItemAtPosition(pos).toString();
-                mSelectCode.setText(labelone);
+
+                label = parent.getItemAtPosition(pos).toString();
+                mSelectCode.setText(label);
                 break;
             case 2:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String labelthree = parent.getItemAtPosition(pos).toString();
-                mSelectCode.setText(labelthree);
+
+                label = parent.getItemAtPosition(pos).toString();
+                mSelectCode.setText(label);
                 break;
             case 3:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String labelfour = parent.getItemAtPosition(pos).toString();
-                mSelectCode.setText(labelfour);
+
+                label = parent.getItemAtPosition(pos).toString();
+                mSelectCode.setText(label);
                 break;
             case 4:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String labelfive = parent.getItemAtPosition(pos).toString();
-                mSelectCode.setText(labelfive);
+
+                label = parent.getItemAtPosition(pos).toString();
+                mSelectCode.setText(label);
             case 5:
-                mSelectCode = (TextView) findViewById(R.id.selectcode);
-                String labelsix = parent.getItemAtPosition(pos).toString();
-                mSelectCode.setText(labelsix);
+
+                label = parent.getItemAtPosition(pos).toString();
+                mSelectCode.setText(label);
         }
     }
 
-    //    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-//            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//        @Override
-//        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.navigation_home:
-//                    Intent b = new Intent(ReviewOfSight.this,HomeScreen2.class);
-//                    startActivity(b);
-//                    return true;
-//                case R.id.camera:
-//                    Intent jb = new Intent(ReviewOfSight.this,CameraActivity.class);
-//                    startActivity(jb);
-//                    return true;
-//                case R.id.Exit:
-//                    Intent intent = new Intent(Intent.ACTION_MAIN);
-//                    intent.addCategory(Intent.CATEGORY_HOME);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    startActivity(intent);
-//                    return true;
-//                case R.id.telephone:
-//                    Intent intentc = new Intent(Intent.ACTION_DIAL);
-//                    intentc.setData(Uri.parse("tel:0123456789"));
-//                    startActivity(intentc);
-//                    return true;
-//
-//            }
-//            return false;
-//        }
-//
-//    };
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
@@ -119,13 +120,14 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.review_of_sight);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        mSelectCode = (TextView) findViewById(R.id.selectcode);
+
         setSupportActionBar(myToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
+
         actionBar.setDisplayHomeAsUpEnabled(true);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_24dp);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_arrow_left_black_24dp);
 
         Spinner spinner = (Spinner) findViewById(R.id.healthy_spinner);
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -135,8 +137,10 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
+        spinner.setOnItemSelectedListener(this);
+        desc = (EditText) findViewById(R.id.desc);
+        nameof = (EditText) findViewById(R.id.n_of);
 
         dateView = (TextView) findViewById(R.id.selectcode_three);
         calendar = Calendar.getInstance();
@@ -150,16 +154,29 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
         time = (TextView) findViewById(R.id.selectcode_two);
         calendar = Calendar.getInstance();
 
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int min = calendar.get(Calendar.MINUTE);
+        hour = calendar.get(Calendar.HOUR_OF_DAY);
+        min = calendar.get(Calendar.MINUTE);
         showTime(hour, min);
 
+        btn = (TextView) findViewById(R.id.sendreport);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sendtonext();
+
+
+            }
+        });
         RelativeLayout camera = (RelativeLayout) findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ReviewOfSight.this, CameraActivity.class);
-                startActivity(i);
+                // Intent i = new Intent(HealthAndSafety.this, CameraActivity.class);
+                // startActivity(i);
+                showPictureDialog();
+
+
             }
         });
         ImageView cam = (ImageView) findViewById(R.id.img_camera);
@@ -168,8 +185,7 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
 
-                Intent b = new Intent(ReviewOfSight.this, CameraActivity.class);
-                startActivity(b);
+                showPictureDialog();
 
             }
         });
@@ -177,10 +193,32 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                TelephonyManager telMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                int simState = telMgr.getSimState();
+                switch (simState) {
+                    case TelephonyManager.SIM_STATE_ABSENT:
+                        Toast.makeText(ReviewOfSight.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
+                        Toast.makeText(ReviewOfSight.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_PIN_REQUIRED:
+                        Toast.makeText(ReviewOfSight.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_PUK_REQUIRED:
+                        Toast.makeText(ReviewOfSight.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                    case TelephonyManager.SIM_STATE_READY:
 
-                Intent intentc = new Intent(Intent.ACTION_DIAL);
-                intentc.setData(Uri.parse("tel:+92 42 35941084"));
-                startActivity(intentc);
+                        Intent intentc = new Intent(Intent.ACTION_DIAL);
+                        intentc.setData(Uri.parse("tel:+92 42 35941084"));
+                        startActivity(intentc);
+
+                        break;
+                    case TelephonyManager.SIM_STATE_UNKNOWN:
+                        Toast.makeText(ReviewOfSight.this, "Unable to call", Toast.LENGTH_SHORT).show();
+                        break;
+                }
 
 
             }
@@ -190,7 +228,7 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
 //
-                Intent i = new Intent(ReviewOfSight.this, HomeScreen2.class);
+                Intent i = new Intent(ReviewOfSight.this, ReviewOfSight.class);
                 startActivity(i);
             }
         });
@@ -207,6 +245,34 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
             }
         });
 
+        SharedPreferences prefs = getSharedPreferences(NAME, MODE_PRIVATE);
+
+        SharedPreferences prefs1 = getSharedPreferences("name", MODE_PRIVATE);
+
+        if (prefs1.contains("num")) {
+            if (prefs.contains(DES)) {
+                // String name = prefs.getString("munum", "");//"No name defined" is the default value.
+
+                desc.setText(prefs.getString(DES, ""));
+                nameof.setText(prefs.getString(NAMEOF, ""));
+                dateView.setText(prefs.getString(DATE, ""));
+                String hou = prefs.getString(TIME, "").substring(0, 2);
+                String min = prefs.getString(TIME, "").substring(3);
+                int a = Integer.parseInt(hou);
+                int b = Integer.parseInt(min);
+
+
+                //  t.setText(prefs.getString(CODE, ""));
+
+            } else {
+                // Toast.makeText(ReviewOfSight.this, "no", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+        } else {
+
+        }
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -243,8 +309,8 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
                 .append(month).append("/").append(year));
     }
     public void setTime(View view) {
-        int hour = timePicker1.getCurrentHour();
-        int min = timePicker1.getCurrentMinute();
+        hour = timePicker1.getCurrentHour();
+        min = timePicker1.getCurrentMinute();
         showTime(hour, min);
     }
 
@@ -261,12 +327,162 @@ public class ReviewOfSight extends AppCompatActivity implements AdapterView.OnIt
             format = "AM";
         }
 
+
 //        time.setText(new StringBuilder().append(hour).append(" : ").append(min)
 //                .append(" ").append(format));
     }
 
+    void sendtonext() {
+        String description = desc.getText().toString();
+        String Contrac_code = label;
+        String time = timePicker1.getCurrentHour() + ":" + timePicker1.getCurrentMinute();
+
+        String Date = dateView.getText().toString();
+
+        String nameoff = nameof.getText().toString();
+
+        if (description.equals("") || time.equals("") || Date.equals("") || nameoff.equals("") || Contrac_code.equals("Select Code...")) {
+            Toast.makeText(ReviewOfSight.this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            if (cam && !gal) {
+                Intent i = new Intent(ReviewOfSight.this, ReviewOfSightDetails.class);
+                i.putExtra("desc", description);
+                i.putExtra("code", Contrac_code);
+                i.putExtra("time", time);
+                i.putExtra("date", Date);
+                i.putExtra("nameoff", nameoff);
+                i.putExtra("image", pngUri.toString());
+                startActivity(i);
+                //.makeText(ReviewOfSight.this, uriSavedImage + "cam", Toast.LENGTH_SHORT).show();
+
+            } else if (gal && !cam) {
+                Intent i = new Intent(ReviewOfSight.this, ReviewOfSightDetails.class);
+                i.putExtra("desc", description);
+                i.putExtra("code", Contrac_code);
+                i.putExtra("time", time);
+                i.putExtra("date", Date);
+                i.putExtra("nameoff", nameoff);
+                i.putExtra("image", contentURI.toString());
+                startActivity(i);
+
+                //  Toast.makeText(ReviewOfSight.this, contentURI + "gal", Toast.LENGTH_SHORT).show();
+            } else if (!gal && !cam) {
+                Intent i = new Intent(ReviewOfSight.this, ReviewOfSightDetails.class);
+                i.putExtra("desc", description);
+                i.putExtra("code", Contrac_code);
+                i.putExtra("time", time);
+                i.putExtra("date", Date);
+                i.putExtra("nameoff", nameoff);
+
+                i.putExtra("image", "null");
+                startActivity(i);
+                Toast.makeText(ReviewOfSight.this, "No Pic is attached", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
+
+    }
+
+    public void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Select photo from gallery",
+                "Capture photo from camera"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                choosePhotoFromGallary();
+                                break;
+                            case 1:
+                                takePhotoFromCamera();
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+    }
+    //////////////////////////functions
+
+    public void choosePhotoFromGallary() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(galleryIntent, GALLERY);
+    }
+
+    public void takePhotoFromCamera() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        File imagesFolder = new File(Environment.getExternalStorageDirectory(), "MyImages");
+        imagesFolder.mkdirs();
+
+        File image = new File(imagesFolder, "QR12" + ".jpg");
+        uriSavedImage = Uri.fromFile(image);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriSavedImage);
+        // Toast.makeText(ReviewOfSight.this, android.os.Environment.getExternalStorageDirectory().toString(), Toast.LENGTH_LONG).show();
+
+        startActivityForResult(intent, CAMERA);
+    }
+
+
+
+    /*
+    *Hamdulla
+     * My Activity Result
+      *
+      * */
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_CANCELED) {
+            return;
+        }
+        if (requestCode == GALLERY) {
+            contentURI = data.getData();
+            if (data != null) {
+
+
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
+                    gal = true;
+                    cam = false;
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ReviewOfSight.this, "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+        } else if (requestCode == CAMERA) {
+
+
+            File pngDir = new File(
+
+                    Environment.getExternalStorageDirectory(),
+                    "MyImages");
+
+            if (!pngDir.exists())
+                pngDir.mkdirs();
+
+            File pngFile = new File(pngDir, "QR12.jpg");
+            pngUri = Uri.fromFile(pngFile);//yad rakhna
+
+            gal = false;
+            cam = true;
+
+
+        }
+    }
+
 
 }
-
 
 
